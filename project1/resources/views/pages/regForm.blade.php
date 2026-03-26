@@ -64,18 +64,19 @@
 
     <div class="container">
         <h2>Register</h2>
-        <form action="">
+        <form action="/submitForm" method="POST">
+            @csrf
             <div>
                 <label for="name">name</label>
-                <input type="text" placeholder="enter name" id="name">
+                <input type="text" name="name" placeholder="enter name" id="name">
             </div>
             <div>
                 <label for="email">email</label>
-                <input type="email" placeholder="enter email" id="email">
+                <input type="email" name="email" placeholder="enter email" id="email">
             </div>
             <div>
                 <label for="password">password</label>
-                <input type="password" placeholder="enter password">
+                <input type="password" name="password" placeholder="enter password">
             </div>
             <div>
                 <button type="submit">Register</button>

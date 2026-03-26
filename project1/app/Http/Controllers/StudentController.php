@@ -10,4 +10,16 @@ class StudentController extends Controller
     public function regForm(){
         return view('pages.regForm');
     }
+    public function handleForm(Request $request){
+        // return 'form submitted successfully.';  will be some other page
+        
+        /*
+        return '<script> alert("form submitted successfully!"); </script>
+            $request->all();   
+        ';
+        */
+        $data = $request->all();
+        return $data;
+
+    }
 }

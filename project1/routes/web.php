@@ -18,7 +18,10 @@ Route::get('/admin-details',[Mycontroller::class,'adminDetails']);
 
 Route::get('/myjson',[Mycontroller::class,'myjson']);
 
+//                 //       TODO:  form handlding routes 
+
 Route::get('/register',[StudentController::class,'regForm']);
+Route::post('/submitForm',[StudentController::class,'handleForm']);
 
 
 //   create route that return a string
