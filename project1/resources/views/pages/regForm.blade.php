@@ -64,19 +64,30 @@
 
     <div class="container">
         <h2>Register</h2>
+
+        @if($errors->any())
+            {{$errors->first()}}
+        @endif
+
+
         <form action="/submitForm" method="POST">
             @csrf
             <div>
+                <label for="username">username </label>
+                <input type="text" id="username" name"username" placeholder="username" required>
+            </div>
+            <div>
                 <label for="name">name</label>
-                <input type="text" name="name" placeholder="enter name" id="name">
+                <input type="text" name="name" placeholder="enter name" id="name"
+                required>
             </div>
             <div>
                 <label for="email">email</label>
-                <input type="email" name="email" placeholder="enter email" id="email">
+                <input type="email" name="email" placeholder="enter email" id="email" required>
             </div>
             <div>
                 <label for="password">password</label>
-                <input type="password" name="password" placeholder="enter password">
+                <input type="password" name="password" placeholder="enter password" required>
             </div>
             <div>
                 <button type="submit">Register</button>
