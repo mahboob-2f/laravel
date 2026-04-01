@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mycontroller;
+use App\Http\Controllers\PractiseController;
 use App\Http\Controllers\StudentController;
 
 //    use to declare all routes of our site
@@ -22,6 +23,25 @@ Route::get('/myjson',[Mycontroller::class,'myjson']);
 
 Route::get('/register',[StudentController::class,'regForm']);
 Route::post('/submitForm',[StudentController::class,'handleForm']);
+
+
+
+//           TODO  :   Practise Routes
+
+Route::get('/register-form',[PractiseController::class,'registerForm']);
+Route::post('/submit-register-form',[PractiseController::class,'handleRegisterForm']);
+
+//  todo    :     Route grouping
+
+Route::prefix('/lpu')->grouping(function(){
+    Route::get('/student',function(){
+        return 'Student Page';
+    });
+    Route::get('/faculty',function(){
+        return 'Faculty page';
+    });
+
+});
 
 
 //   create route that return a string
