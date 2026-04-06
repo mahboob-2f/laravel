@@ -26,14 +26,14 @@ Route::post('/submitForm',[StudentController::class,'handleForm']);
 
 
 
-//           TODO  :   Practise Routes
+//           =>  :   Practise Routes
 
 Route::get('/register-form',[PractiseController::class,'registerForm']);
 Route::post('/submit-register-form',[PractiseController::class,'handleRegisterForm']);
 
-//  todo    :     Route grouping
+//           =>  :   Route grouping  
 
-Route::prefix('/lpu')->grouping(function(){
+Route::prefix('/lpu')->group(function(){
     Route::get('/student',function(){
         return 'Student Page';
     });
@@ -92,3 +92,22 @@ Route::get('/btech/result-2025',function(){
     ];
     return view('pages.result',compact('students'));
 });
+
+
+
+
+
+
+
+
+//     =>                CA1                                   
+
+
+
+
+
+
+Route::get('/fetch-data', function () {
+    return view('pages.studentform');
+});
+Route::post('/submit-data', [StudentController::class, 'fetchData']);
