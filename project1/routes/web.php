@@ -100,7 +100,7 @@ Route::get('/btech/result-2025',function(){
 
 
 
-//     =>                CA1                                   
+//     =>         CA1            
 
 
 
@@ -109,5 +109,13 @@ Route::get('/btech/result-2025',function(){
 
 Route::get('/fetch-data', function () {
     return view('pages.studentform');
-});
+})->name('fetch-data');
 Route::post('/submit-data', [StudentController::class, 'fetchData']);
+
+
+
+//   =>    Inheriting master layout routes
+
+Route::get('/dashboard', function () {
+    return view('layout.dashboard');
+})->name('dashboard');

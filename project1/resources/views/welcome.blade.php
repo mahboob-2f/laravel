@@ -1,10 +1,14 @@
+@extends('layout.masterFile')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @section('title')
+        <title>Welcome</title>
+    @endsection
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -90,6 +94,8 @@
 </head>
 
 <body>
+
+    @section('content')
     <div class="container">
         <h1 class="welcome-message">Welcome to {{ config('app.name', 'Laravel') }}</h1>
         <p class="subtitle">Your journey into web development starts here. Explore the features below!</p>
@@ -103,6 +109,7 @@
     <div>
         
     </div>
+    @endsection
 </body>
 
 </html>
