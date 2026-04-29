@@ -17,6 +17,13 @@
     </header>
     <main>
         @yield('content')
+        @if(session('username')){
+            <p>Welcome, {{ session('username') }}!</p>
+        }
+        @else{
+            <p>Welcome, Guest!</p>
+        }
+        @endif
     </main>
     <footer>
         Copyright &copy; 2024 My Application. All rights reserved.

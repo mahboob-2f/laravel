@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mycontroller;
 use App\Http\Controllers\PractiseController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\LoginController;
 
 //    use to declare all routes of our site
 Route::get('/', function () {
@@ -119,3 +120,14 @@ Route::post('/submit-data', [StudentController::class, 'fetchData']);
 Route::get('/dashboard', function () {
     return view('layout.dashboard');
 })->name('dashboard');
+
+
+
+//   =>     session
+
+Route::get('/login',function(){
+    return view('pages.loginPage');
+});
+Route::post('/loginSubmit',[LoginController::class,'login']);
+
+Route::get('/logout',[LoginController::class,'logout']);
