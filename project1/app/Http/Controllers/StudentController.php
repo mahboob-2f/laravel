@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MongoService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use MongoDB\Driver\Exception\Exception as MongoDBException;
 
 class StudentController extends Controller
 {
+    public function __construct(private MongoService $mongo)
+    {
+    }
     
     public function fetchData(Request $request)
     {
@@ -51,28 +58,50 @@ class StudentController extends Controller
             {
                 return view('pages.regForm');
             }
-            public function handleForm(Request $request)
+            public function handleForm(Request $request): RedirectResponse
             {
-                // return 'form submitted successfully.';  will be some other page
-        
-                /*
-                return '<script> alert("form submitted successfully!"); </script>
-                    $request->all();   
-                ';
-                    $data = $request->all();
-                    return $data;
-                */
-                //    TODO :   validation in form
-        
-                $request->validate(([
-                    'username' => 'min:4|max:20|regex:/^[A-Za-z0-9_]+$/',
-                    'name' => 'min:4|max:20|regex:/^[A-Za-z\s]+$/',
-                    'email' => 'email|unique:users,email',
+                $validated = $request->validate(([
+                    'username' => 'required|min:4|max:20|regex:/^[A-Za-z0-9_]+$/',
+                    'name' => 'required|min:4|max:20|regex:/^[A-Za-z\s]+$/',
+                    'email' => 'required|email',
                     'password' => 'required|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&*])[A-Za-z0-9@#$%^&*]+$/'
                 ]));
-        
-                $data = $request->all();
-                return $data;
+
+                if (! $this->mongo->ping()) {
+                    return back()->withInput()->withErrors([
+                        'database' => 'MongoDB connection failed. Make sure MongoDB is running on 127.0.0.1:27017.',
+                    ]);
+                }
+
+                if ($this->mongo->exists('users', ['email' => $validated['email']])) {
+                    return back()->withInput()->withErrors([
+                        'email' => 'This email is already registered.',
+                    ]);
+                }
+
+                if ($this->mongo->exists('users', ['username' => $validated['username']])) {
+                    return back()->withInput()->withErrors([
+                        'username' => 'This username is already taken.',
+                    ]);
+                }
+
+                try {
+                    $this->mongo->insertOne('users', [
+                        'username' => $validated['username'],
+                        'name' => $validated['name'],
+                        'email' => $validated['email'],
+                        'password' => Hash::make($validated['password']),
+                        'source' => 'student_register',
+                        'created_at' => date('c'),
+                        'updated_at' => date('c'),
+                    ]);
+                } catch (MongoDBException) {
+                    return back()->withInput()->withErrors([
+                        'database' => 'Unable to save your registration in MongoDB right now.',
+                    ]);
+                }
+
+                return back()->with('success', 'Registration saved to MongoDB successfully.');
             }
 }
         

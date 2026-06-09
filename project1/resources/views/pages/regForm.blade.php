@@ -65,6 +65,10 @@
     <div class="container">
         <h2>Register</h2>
 
+        @if (session('success'))
+            <p>{{ session('success') }}</p>
+        @endif
+
         @if($errors->any())
             {{$errors->first()}}
         @endif
@@ -74,16 +78,16 @@
             @csrf
             <div>
                 <label for="username">username </label>
-                <input type="text" id="username" name"username" placeholder="username" required>
+                <input type="text" id="username" name="username" placeholder="username" value="{{ old('username') }}" required>
             </div>
             <div>
                 <label for="name">name</label>
-                <input type="text" name="name" placeholder="enter name" id="name"
+                <input type="text" name="name" placeholder="enter name" id="name" value="{{ old('name') }}"
                 required>
             </div>
             <div>
                 <label for="email">email</label>
-                <input type="email" name="email" placeholder="enter email" id="email" required>
+                <input type="email" name="email" placeholder="enter email" id="email" value="{{ old('email') }}" required>
             </div>
             <div>
                 <label for="password">password</label>

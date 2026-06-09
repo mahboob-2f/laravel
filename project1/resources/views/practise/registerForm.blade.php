@@ -11,6 +11,12 @@
     <div class="w-full max-w-md bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl shadow-2xl px-8 py-6">
         <h1 class="text-2xl font-bold text-white text-center mb-5 tracking-tight">Create Account</h1>
 
+        @if (session('success'))
+            <div class="mb-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-4 py-3">
+                <p class="text-emerald-300 text-sm">{{ session('success') }}</p>
+            </div>
+        @endif
+
         {{-- Global Error Summary (shows if any errors exist) --}}
         @if($errors->any())
             <div class="mb-4 bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3">
