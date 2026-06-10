@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>firstPage</title>
+    <title>Student Registration</title>
 </head>
 <body>
-    <div>
-        <h2>Welcome to the Home Page</h2>
-    </div>
+
+    <h2>Student Registration Form</h2>
+
+    @if(session('success'))
+        <p style="color: green;">
+            {{ session('success') }}
+        </p>
+    @endif
+
+    <form action="/first" method="POST">
+        @csrf <!-- CSRF Protection -->
+
+        <div>
+            <label>Name:</label>
+            <input type="text" name="name" value="{{ old('name') }}">
+
+            @error('name')
+                <span style="color:red;">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <br>
+
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ old('email') }}">
+
+            @error('email')
+                <span style="color:red;">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <br>
+
+        <div>
+            <label>Age:</label>
+            <input type="number" name="age" value="{{ old('age') }}">
+
+            @error('age')
+                <span style="color:red;">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <br>
+
+        <button type="submit">Register</button>
+    </form>
+
 </body>
 </html>

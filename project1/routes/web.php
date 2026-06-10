@@ -5,8 +5,13 @@ use App\Http\Controllers\Mycontroller;
 use App\Http\Controllers\PractiseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FirstController;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\MailController;
 
 //    use to declare all routes of our site
+/*
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -131,3 +136,58 @@ Route::get('/login',function(){
 Route::post('/loginSubmit',[LoginController::class,'login']);
 
 Route::get('/logout',[LoginController::class,'logout']);
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/home', function () {
+    return "<h1>Welcome to Home Page</h1>";
+});
+
+// Route::get('/first',function(){
+//     return view('firstPage');
+// });
+Route::get('/first',[FirstController::class,'create']);
+Route::post('/first',[FirstController::class,'store']);
+
+//  => Localization
+
+Route::get('/{lang?}', function ($lang = 'en') {
+
+    App::setLocale($lang);
+
+    return view('welcome');
+});
+
+
+// =>  Mail 
+
+Route::get('/send-mail',[MailController::class,'register']);
